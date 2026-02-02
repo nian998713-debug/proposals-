@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nikita ❤️ Aman</title>
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: radial-gradient(circle at top, #ff9acb, #2b0033);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Montserrat', sans-serif;
+    overflow: hidden;
+    color: white;
+    text-align: center;
+    animation: bgMove 8s infinite alternate;
+}
+
+@keyframes bgMove {
+    from { background-position: top; }
+    to { background-position: bottom; }
+}
+
+/* Card */
+.card {
+    background: linear-gradient(135deg, rgba(255,255,255,0.25), rgba(255,255,255,0.05));
+    backdrop-filter: blur(15px);
+    padding: 40px;
+    border-radius: 25px;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.5);
+    border: 1px solid rgba(255,255,255,0.3);
+    animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0); }
+}
+
+.heart {
+    font-size: 70px;
+    animation: beat 0.8s infinite;
+    filter: drop-shadow(0 0 25px rgba(255,0,120,0.9));
+}
+
+@keyframes beat {
+    0%,100% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+}
+
+h1 {
+    font-family: 'Great Vibes', cursive;
+    font-size: 52px;
+    color: #ffd1e8;
+    text-shadow: 0 0 20px rgba(255,120,180,0.8);
+    margin-bottom: 10px;
+}
+
+p {
+    font-size: 18px;
+    opacity: 0.95;
+}
+
+#typeText {
+    font-size: 24px;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+}
+
+button {
+    padding: 14px 30px;
+    font-size: 18px;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    margin: 10px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+#yes {
+    background: linear-gradient(135deg, #ffb6d5, #fff);
+    color: #c7005c;
+    box-shadow: 0 0 25px rgba(255,120,180,0.8);
+}
+
+#yes:hover {
+    transform: scale(1.15);
+    box-shadow: 0 0 40px rgba(255,120,180,1);
+}
+
+#no {
+    background: linear-gradient(135deg, #111, #333);
+    color: white;
+    position: fixed;
+}
+
+/* Ring */
+.ring {
+    font-size: 90px;
+    animation: ringDrop 2s ease forwards;
+}
+
+@keyframes ringDrop {
+    0% { transform: translateY(-200px) scale(0); opacity: 0; }
+    60% { transform: translateY(20px) scale(1.2); }
+    100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+/* Firework */
+.firework {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    animation: explode 1s ease-out forwards;
+}
+
+@keyframes explode {
+    to { transform: scale(20); opacity: 0; }
+}
+
+/* Floating text */
+.love-text {
+    position: absolute;
+    font-size: 22px;
+    font-weight: bold;
+    animation: floatUp 3s ease-out forwards;
+}
+
+@keyframes floatUp {
+    to { transform: translateY(-200px); opacity: 0; }
+}
+
+/* Photo */
+.photo {
+    width: 220px;
+    border-radius: 20px;
+    margin-top: 15px;
+    box-shadow: 0 0 40px rgba(255,100,180,0.6);
+}
+
+.counter {
+    margin-top: 15px;
+    font-family: 'Great Vibes', cursive;
+    font-size: 28px;
+}
+</style>
+</head>
+
+<body>
+
+<audio id="bgMusic" src="music.mp3" loop></audio>
+
+<div class="card" id="card">
+    <div class="heart">❤️</div>
+    <h1>Nikita A Yadav</h1>
+    <p id="typeText"></p>
+    <p><i>Meri zindagi ki roshni ho tum ✨</i></p>
+
+    <button id="yes" onclick="yesClicked()">Yes ❤️</button>
+    <button id="no" onmouseover="moveNo()">No 😝</button>
+</div>
+
+<script>
+/* Typewriter */
+const text = "Will you marry me? 💍";
+let i = 0;
+function typeWriter() {
+    if (i < text.length) {
+        document.getElementById("typeText").innerHTML += text.charAt(i);
+        i++;
+        setTimeout(typeWriter, 80);
+    }
+}
+window.onload = typeWriter;
+
+/* No button */
+function moveNo() {
+    const noBtn = document.getElementById("no");
+    noBtn.style.left = Math.random() * (window.innerWidth - 130) + "px";
+    noBtn.style.top = Math.random() * (window.innerHeight - 130) + "px";
+}
+
+/* Yes clicked */
+function yesClicked() {
+    document.getElementById("card").style.display = "none";
+    document.getElementById("bgMusic").play().catch(()=>{});
+
+    const container = document.createElement("div");
+    container.innerHTML = `
+        <div class="ring">💍</div>
+        <h1>Nikita ❤️ Aman</h1>
+        <p>Together since 26 October 2022</p>
+        <div class="counter" id="counter"></div>
+        <img src="photo.jpg" class="photo">
+        <h2 style="font-family:Great Vibes;font-size:42px;color:#ffd1e8;
+        text-shadow:0 0 20px rgba(255,120,180,0.9);">
+        Tum meri duniya ho ❤️
+        </h2>
+    `;
+    document.body.appendChild(container);
+
+    setInterval(() => {
+        firework();
+        loveText();
+        updateCounter();
+    }, 300);
+
+    updateCounter();
+}
+
+/* Counter */
+const startDate = new Date("2022-10-26");
+
+function updateCounter() {
+    const now = new Date();
+    const days = Math.floor((now - startDate) / (1000*60*60*24));
+    document.getElementById("counter").innerHTML = `⏳ ${days} Days Together`;
+}
+
+/* Effects */
+function firework() {
+    const fw = document.createElement("div");
+    fw.className = "firework";
+    fw.style.left = Math.random() * window.innerWidth + "px";
+    fw.style.top = Math.random() * window.innerHeight + "px";
+    fw.style.background = ["#ff0","#f0f","#0ff","#0f0","#f00"][Math.floor(Math.random()*5)];
+    document.body.appendChild(fw);
+    setTimeout(()=>fw.remove(),1000);
+}
+
+function loveText() {
+    const t = document.createElement("div");
+    t.className = "love-text";
+    t.innerText = "Nikita ❤️ Aman";
+    t.style.left = Math.random() * (window.innerWidth - 150) + "px";
+    t.style.top = window.innerHeight + "px";
+    document.body.appendChild(t);
+    setTimeout(()=>t.remove(),3000);
+}
+</script>
+
+</body>
+</html>
