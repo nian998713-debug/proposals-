@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Nikita ❤️ Aman</title>
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    background: radial-gradient(circle, #ff4b7d, #1a1a1a);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Segoe UI', sans-serif;
+    overflow: hidden;
+    color: white;
+    text-align: center;
+}
+
+.card {
+    background: rgba(255,255,255,0.15);
+    padding: 35px;
+    border-radius: 20px;
+    max-width: 380px;
+    z-index: 2;
+}
+
+h1 { font-size: 32px; }
+p { font-size: 18px; }
+
+button {
+    padding: 14px 28px;
+    font-size: 18px;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    margin: 10px;
+}
+
+#yes { background: white; color: #ff4b7d; }
+#no {
+    background: black;
+    color: white;
+    position: absolute;
+}
+
+.heart {
+    font-size: 55px;
+    animation: beat 1s infinite;
+}
+
+@keyframes beat {
+    0%,100% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+}
+
+/* Fireworks */
+.firework {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    animation: explode 1s ease-out forwards;
+}
+@keyframes explode {
+    from { transform: scale(1); opacity: 1; }
+    to { transform: scale(20); opacity: 0; }
+}
+
+/* Floating text */
+.love-text {
+    position: absolute;
+    font-size: 24px;
+    font-weight: bold;
+    animation: floatUp 3s ease-out forwards;
+}
+@keyframes floatUp {
+    from { transform: translateY(0); opacity: 1; }
+    to { transform: translateY(-200px); opacity: 0; }
+}
+
+/* Photo */
+.photo {
+    width: 220px;
+    border-radius: 20px;
+    margin-top: 15px;
+    animation: fadeIn 2s forwards;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.counter {
+    margin-top: 15px;
+    font-size: 18px;
+    line-height: 1.6;
+}
+</style>
+</head>
+
+<body>
+
+<audio id="bgMusic" src="music.mp3" loop></audio>
+
+<div class="card" id="card">
+    <div class="heart">❤️</div>
+    <h1>Nikita A Yadav</h1>
+    <p>Will you marry me? 💍</p>
+    <p><i>Meri zindagi ki roshni ho tum ✨</i></p>
+
+    <button id="yes" onclick="yesClicked()">Yes ❤️</button>
+    <button id="no" onmouseover="moveNo()">No 😝</button>
+</div>
+
+<script>
+let noCount = 0;
+
+function moveNo() {
+    const noBtn = document.getElementById("no");
+    noCount++;
+    noBtn.style.left = Math.random() * (window.innerWidth - 100) + "px";
+    noBtn.style.top = Math.random() * (window.innerHeight - 100) + "px";
+    if (noCount > 8) noBtn.style.display = "none";
+}
+
+function yesClicked() {
+    document.getElementById("card").style.display = "none";
+    document.getElementById("bgMusic").play();
+
+    const container = document.createElement("div");
+    container.innerHTML = `
+        <h1>Nikita ❤️ Aman</h1>
+        <p>Together since 26 October 2022</p>
+        <div class="counter" id="counter"></div>
+        <img src="photo.jpg" class="photo">
+    `;
+    document.body.appendChild(container);
+
+    setInterval(() => {
+        firework();
+        loveText();
+        updateCounter();
+    }, 200);
+
+    updateCounter();
+}
+
+// Anniversary Counter
+const startDate = new Date("2022-10-26T00:00:00");
+
+function updateCounter() {
+    const now = new Date();
+    let years = now.getFullYear() - startDate.getFullYear();
+    let months = now.getMonth() - startDate.getMonth();
+    let days = now.getDate() - startDate.getDate();
+
+    if (days < 0) {
+        months--;
+        days += new Date(now.getFullYear(), now.getMonth(), 0).getDate();
+    }
+    if (months < 0) {
+        years--;
+        months += 12;
+    }
+
+    const totalDays = Math.floor((now - startDate) / (1000 * 60 * 60 * 24));
+
+    document.getElementById("counter").innerHTML = `
+        ❤️ <b>${years}</b> Years<br>
+        💕 <b>${months}</b> Months<br>
+        ✨ <b>${days}</b> Days<br>
+        ⏳ <b>${totalDays}</b> Days Together
+    `;
+}
+
+function firework() {
+    const fw = document.createElement("div");
+    fw.className = "firework";
+    fw.style.left = Math.random() * window.innerWidth + "px";
+    fw.style.top = Math.random() * window.innerHeight + "px";
+    fw.style.background = ["#ff0","#f0f","#0ff","#0f0","#f00"][Math.floor(Math.random()*5)];
+    document.body.appendChild(fw);
+    setTimeout(()=>fw.remove(),1000);
+}
+
+function loveText() {
+    const t = document.createElement("div");
+    t.className = "love-text";
+    t.innerText = "I Love You ❤️";
+    t.style.left = Math.random() * (window.innerWidth - 100) + "px";
+    t.style.top = window.innerHeight + "px";
+    document.body.appendChild(t);
+    setTimeout(()=>t.remove(),3000);
+}
+</script>
+
+</body>
+</html>
